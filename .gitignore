@@ -1,0 +1,24 @@
+# .NET
+**/bin/
+**/obj/
+**/publish/
+**/*.user
+appsettings.Production.json
+appsettings.Local.json
+
+# Angular
+**/node_modules/
+**/dist/
+**/.angular/cache/
+
+# Deploy folder (contains credentials + build artifacts)
+deploy/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.suo
