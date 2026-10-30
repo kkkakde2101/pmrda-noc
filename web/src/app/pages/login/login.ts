@@ -13,7 +13,7 @@ import { problemMessage } from '../../core/support';
       <div class="login-card">
         <div class="login-header">
           <div class="login-logo"><i class="fa-solid fa-tree"></i></div>
-          <h1>PMRDA Smart City – Tree NOC Management System</h1>
+          <h1>PMRDA Smart City – Tree Cutting NOC Management System</h1>
           <p>Pune Metropolitan Region Development Authority</p>
         </div>
 

@@ -7,7 +7,7 @@ export const routes: Routes = [
   {
     path: 'login',
     canActivate: [guestGuard],
-    title: 'Sign in · PMRDA Smart City – Tree NOC Management System',
+    title: 'Sign in · PMRDA Smart City – Tree Cutting NOC Management System',
     loadComponent: () => import('./pages/login/login').then((m) => m.Login),
   },
   {
