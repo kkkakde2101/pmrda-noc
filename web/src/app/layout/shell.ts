@@ -17,7 +17,7 @@ import { P } from '../core/models';
           </div>
           <div class="brand-text">
             <span class="brand-name">PMRDA Smart City</span>
-            <span class="brand-sub">Tree NOC Management System</span>
+            <span class="brand-sub">Tree Cutting NOC Management System</span>
           </div>
         </div>
 

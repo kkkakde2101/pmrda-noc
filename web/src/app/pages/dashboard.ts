@@ -21,7 +21,7 @@ import { P } from '../core/models';
       <i class="fa-solid fa-tree"></i>
       <div>
         <strong>Welcome, {{ auth.me()?.displayName }}</strong>
-        <span>PMRDA Smart City – Tree NOC Management System — Pune Metropolitan Region Development Authority</span>
+        <span>PMRDA Smart City – Tree Cutting NOC Management System — Pune Metropolitan Region Development Authority</span>
       </div>
     </div>
 
