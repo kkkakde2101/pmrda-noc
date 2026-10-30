@@ -218,8 +218,8 @@ export interface Option {
 }
 
 export const NOC_TYPE_LABELS: Record<NocType, string> = {
-  Provisional: 'Provisional Tree NOC',
-  Final: 'Final Tree Completion NOC',
+  Provisional: 'Tree Cutting NOC',
+  Final: 'Tree Cutting NOC',
 };
 
 export const STATUS_LABELS: Record<ApplicationStatus, string> = {

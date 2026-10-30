@@ -41,8 +41,8 @@ import { StatusBadge } from '../../shared/ui';
               <tr>
                 <td><strong>{{ app.applicationNumber }}</strong></td>
                 <td>
-                  <span class="noc-tag" [class.final]="app.nocType === 'Final'">
-                    {{ app.nocType === 'Provisional' ? 'Provisional' : 'Final' }}
+                  <span class="noc-tag">
+                    Tree Cutting
                   </span>
                 </td>
                 <td>{{ app.surveyNumber }}</td>
@@ -71,7 +71,6 @@ import { StatusBadge } from '../../shared/ui';
   `,
   styles: `
     .noc-tag { display: inline-flex; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; background: var(--pmrda-green-pale); color: var(--pmrda-green-dark); }
-    .noc-tag.final { background: var(--info-bg); color: var(--info-text); }
     .empty-state { text-align: center; padding: 40px 20px !important; color: var(--text-muted); }
     .empty-state i { font-size: 40px; margin-bottom: 12px; display: block; opacity: .4; }
     .empty-state p { margin: 0; }

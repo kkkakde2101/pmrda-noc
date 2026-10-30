@@ -3,18 +3,18 @@ import { DecimalPipe } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MockNocService } from '../../core/mock.service';
-import { NocType, TreeInventoryItem } from '../../core/models';
+import { NOC_TYPE_LABELS, NocType, TreeInventoryItem } from '../../core/models';
 import { treesRequired, problemMessage } from '../../core/support';
 import { MockPaymentService, PaymentModal, PaymentResult } from '../../shared/payment-modal';
 
 const PROVISIONAL_CHECKLIST = [
-  { num: 1, label: 'Application letter with address, mobile number and reasons for obtaining Provisional Tree NOC' },
+  { num: 1, label: 'Application letter with address, mobile number and reasons for obtaining Tree Cutting NOC' },
   { num: 2, label: 'Land Ownership Documents' },
   { num: 3, label: 'Draft Master Layout and Landscape Plan with plot area details and Google co-ordinates, signed by developer and architect' },
   { num: 4, label: 'Location map showing existing trees (Green) and proposed plantation (Blue), signed by architect and environmental consultant' },
   { num: 5, label: 'Tree Survey Report — total trees, common & scientific names, age, height, girth, colour photographs; signed by environmental consultant' },
   { num: 6, label: 'Undertaking for compliance with tree deposit, tree survival and required plantation (After inward)' },
-  { num: 7, label: 'Final Provisional Tree NOC submission letter authorised with PMRDA stamp' },
+  { num: 7, label: 'Final Tree Cutting NOC submission letter authorised with PMRDA stamp' },
   { num: 8, label: 'Proposed Tree Plantation List' },
   { num: 9, label: 'Google Co-ordinates of site (last 5 years)' },
   { num: 10, label: 'Current Google Co-ordinates of construction site' },
@@ -48,7 +48,7 @@ const FINAL_CHECKLIST = [
   template: `
     <div class="page-header">
       <div>
-        <h1>{{ step() === 0 ? 'New Application' : 'Application — ' + nocTypeLabel() }}</h1>
+        <h1>New Application — {{ nocTypeLabel() }}</h1>
         <div class="breadcrumb">
           <a routerLink="/">Home</a><span>/</span>
           <a routerLink="/applications">My Applications</a><span>/</span>
@@ -58,71 +58,17 @@ const FINAL_CHECKLIST = [
     </div>
 
     <!-- Steps indicator -->
-    @if (step() > 0) {
-      <div class="steps">
-        @for (s of steps; track s.num) {
-          <div class="step" [class.done]="step() > s.num" [class.active]="step() === s.num">
-            <div class="step-dot">
-              @if (step() > s.num) { <i class="fa-solid fa-check"></i> } @else { {{ s.num }} }
-            </div>
-            <span class="step-label">{{ s.label }}</span>
+    <div class="steps">
+      @for (s of steps; track s.num) {
+        <div class="step" [class.done]="step() > s.num" [class.active]="step() === s.num">
+          <div class="step-dot">
+            @if (step() > s.num) { <i class="fa-solid fa-check"></i> } @else { {{ s.num }} }
           </div>
-          @if (!$last) { <div class="step-line" [class.done]="step() > s.num"></div> }
-        }
-      </div>
-    }
-
-    <!-- STEP 0: Select NOC Type -->
-    @if (step() === 0) {
-      <div class="type-select-page">
-        <h2>Select NOC Type</h2>
-        <p>Choose the type of Tree NOC you want to apply for:</p>
-        <div class="type-cards">
-          <div class="type-card" (click)="selectNocType('Provisional')" [class.selected]="selectedType() === 'Provisional'">
-            <div class="type-icon prov"><i class="fa-solid fa-seedling"></i></div>
-            <h3>Provisional Tree NOC</h3>
-            <p>For <strong>proposed development</strong> before construction begins.</p>
-            <ul>
-              <li>Existing tree inventory required</li>
-              <li>Proposed plantation plan</li>
-              <li>Master layout and landscape plan</li>
-              <li>14 mandatory documents</li>
-            </ul>
-            <div class="type-card-footer">
-              @if (selectedType() === 'Provisional') {
-                <span class="selected-mark"><i class="fa-solid fa-circle-check"></i> Selected</span>
-              } @else {
-                <span class="select-hint">Click to select</span>
-              }
-            </div>
-          </div>
-          <div class="type-card" (click)="selectNocType('Final')" [class.selected]="selectedType() === 'Final'">
-            <div class="type-icon final"><i class="fa-solid fa-tree"></i></div>
-            <h3>Final Tree Completion NOC</h3>
-            <p>For <strong>completed projects</strong> — required for Occupancy Certificate.</p>
-            <ul>
-              <li>Sanctioned building plan required</li>
-              <li>Geotagging of all planted trees</li>
-              <li>Provisional NOC copy required</li>
-              <li>14 mandatory documents</li>
-            </ul>
-            <div class="type-card-footer">
-              @if (selectedType() === 'Final') {
-                <span class="selected-mark"><i class="fa-solid fa-circle-check"></i> Selected</span>
-              } @else {
-                <span class="select-hint">Click to select</span>
-              }
-            </div>
-          </div>
+          <span class="step-label">{{ s.label }}</span>
         </div>
-        <div class="step-actions">
-          <a routerLink="/applications" class="btn btn-secondary">Cancel</a>
-          <button class="btn btn-primary btn-lg" [disabled]="!selectedType()" (click)="startApplication()">
-            Continue <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-      </div>
-    }
+        @if (!$last) { <div class="step-line" [class.done]="step() > s.num"></div> }
+      }
+    </div>
 
     <!-- STEP 1: Applicant & Property Details -->
     @if (step() === 1) {
@@ -217,7 +163,7 @@ const FINAL_CHECKLIST = [
         </div>
 
         <div class="step-actions">
-          <button type="button" class="btn btn-secondary" (click)="step.set(0)">Back</button>
+          <a routerLink="/applications" class="btn btn-secondary">Cancel</a>
           <button type="submit" class="btn btn-primary">Next: Tree Inventory <i class="fa-solid fa-arrow-right"></i></button>
         </div>
       </form>
@@ -397,7 +343,7 @@ const FINAL_CHECKLIST = [
           <div class="undertaking-text">
             <p><strong>To,</strong><br>Metropolitan Commissioner,<br>Pune Metropolitan Regional Development Authority, Pune<br>New Administrative Building, Near Akurdi Railway Station, Akurdi, Pune 411 044.</p>
 
-            <p><strong>Subject:</strong> {{ selectedType() === 'Provisional' ? 'Provisional' : 'Final Tree Completion' }} NOC for development on property at Survey No. <u>{{ detailsForm.get('surveyNumber')?.value }}</u>, Village - <u>{{ detailsForm.get('village')?.value }}</u>, Taluka - <u>{{ detailsForm.get('taluka')?.value }}</u>, District - Pune.</p>
+            <p><strong>Subject:</strong> Tree Cutting NOC for development on property at Survey No. <u>{{ detailsForm.get('surveyNumber')?.value }}</u>, Village - <u>{{ detailsForm.get('village')?.value }}</u>, Taluka - <u>{{ detailsForm.get('taluka')?.value }}</u>, District - Pune.</p>
 
             <p>Sir,</p>
 
@@ -420,7 +366,7 @@ const FINAL_CHECKLIST = [
               @if (selectedType() === 'Final') {
                 <li>Care will be taken for proper growth of the trees for <strong>7 years</strong>.</li>
               }
-              <li>We will pay the requisite deposit fee while obtaining Final Tree Completion NOC from Tree Authority, PMRDA.</li>
+              <li>We will pay the requisite deposit fee while obtaining Tree Cutting NOC from Tree Authority, PMRDA.</li>
               <li>I undertake to abide by orders under Section 8/9/10 of the Maharashtra (Urban Areas) Protection and Preservation of Trees Act, 1975, and amendments and rules of 2009 and 2021.</li>
               <li>The above undertaking will be binding upon us, our legal heirs, executors, administrators and assignees.</li>
             </ol>
@@ -513,26 +459,6 @@ const FINAL_CHECKLIST = [
     }
   `,
   styles: `
-    /* Type selection */
-    .type-select-page { max-width: 900px; }
-    .type-select-page h2 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
-    .type-select-page p { color: var(--text-muted); margin-bottom: 20px; }
-    .type-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-    @media (max-width: 600px) { .type-cards { grid-template-columns: 1fr; } }
-    .type-card { background: var(--card-bg); border: 2px solid var(--border); border-radius: 10px; padding: 20px; cursor: pointer; transition: border-color .15s, background .15s; }
-    .type-card:hover { border-color: var(--pmrda-green); }
-    .type-card.selected { border-color: var(--pmrda-green); background: var(--pmrda-green-pale); }
-    .type-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 14px; }
-    .type-icon.prov { background: #e8f5e9; color: var(--pmrda-green); }
-    .type-icon.final { background: #e3f2fd; color: #1565c0; }
-    .type-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
-    .type-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; }
-    .type-card ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--text-muted); }
-    .type-card ul li { margin-bottom: 4px; }
-    .type-card-footer { margin-top: 16px; font-size: 13px; }
-    .selected-mark { color: var(--pmrda-green); font-weight: 600; }
-    .select-hint { color: var(--text-muted); }
-
     /* Tree table */
     .editing-row { background: var(--pmrda-green-pale); }
     .input-sm { height: 30px; padding: 0 6px; font-size: 13px; width: 100%; min-width: 60px; }
@@ -572,8 +498,9 @@ export class ApplicationForm {
   private readonly paySvc = inject(MockPaymentService);
   private readonly router = inject(Router);
 
-  protected readonly step = signal(0);
-  protected readonly selectedType = signal<NocType | null>(null);
+  // NOC type selection is hidden — all new applications are Tree Cutting NOC (stored as 'Provisional').
+  protected readonly step = signal(1);
+  protected readonly selectedType = signal<NocType | null>('Provisional');
   protected readonly busy = signal(false);
   protected readonly error = signal<string | null>(null);
   protected readonly s1 = signal(false);
@@ -619,7 +546,7 @@ export class ApplicationForm {
   });
 
   protected nocTypeLabel() {
-    return this.selectedType() === 'Provisional' ? 'Provisional Tree NOC' : 'Final Tree Completion NOC';
+    return NOC_TYPE_LABELS[this.selectedType() ?? 'Provisional'];
   }
 
   protected treesReq() {
@@ -636,14 +563,6 @@ export class ApplicationForm {
 
   protected uploadedCount() {
     return Object.keys(this.uploadedFiles()).length + (this.challanPaid() ? 1 : 0);
-  }
-
-  protected selectNocType(type: NocType) {
-    this.selectedType.set(type);
-  }
-
-  protected startApplication() {
-    if (this.selectedType()) this.step.set(1);
   }
 
   protected goStep(n: number) {
@@ -708,7 +627,7 @@ export class ApplicationForm {
     const blob = new Blob([html], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = `PMRDA_${this.selectedType()}_NOC_Checklist.html`; a.click();
+    a.href = url; a.download = `PMRDA_Tree_Cutting_NOC_Checklist.html`; a.click();
     URL.revokeObjectURL(url);
   }
 

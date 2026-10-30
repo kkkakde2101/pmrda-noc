@@ -32,7 +32,7 @@ import { StatusBadge } from '../../shared/ui';
           <div class="panel-body">
             <div class="summary-grid">
               <div class="summary-item"><span class="summary-label">Application No.</span><span>{{ a.applicationNumber }}</span></div>
-              <div class="summary-item"><span class="summary-label">NOC Type</span><span>{{ a.nocType === 'Provisional' ? 'Provisional Tree NOC' : 'Final Tree Completion NOC' }}</span></div>
+              <div class="summary-item"><span class="summary-label">NOC Type</span><span>Tree Cutting NOC</span></div>
               <div class="summary-item"><span class="summary-label">Applicant</span><span>{{ a.applicantName }}</span></div>
               <div class="summary-item"><span class="summary-label">Property</span><span>Survey {{ a.surveyNumber }}, {{ a.village }}, {{ a.taluka }}</span></div>
               <div class="summary-item"><span class="summary-label">Plot Area</span><span>{{ a.plotAreaSqm }} sq.m ({{ a.requiredPlantationCount }} trees required)</span></div>

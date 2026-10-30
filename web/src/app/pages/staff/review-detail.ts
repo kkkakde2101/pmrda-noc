@@ -35,7 +35,7 @@ import { StatusBadge } from '../../shared/ui';
               <div class="summary-grid">
                 <div class="summary-item">
                   <span class="summary-label">NOC Type</span>
-                  <span>{{ a.nocType === 'Provisional' ? 'Provisional Tree NOC' : 'Final Tree Completion NOC' }}</span>
+                  <span>{{ nocLabels[a.nocType] }}</span>
                 </div>
                 <div class="summary-item">
                   <span class="summary-label">Applicant</span>
@@ -226,6 +226,7 @@ export class ReviewDetail {
   private readonly svc = inject(MockNocService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  protected readonly nocLabels = NOC_TYPE_LABELS;
   protected readonly formatDate = formatDate;
   protected readonly formatDateTime = formatDateTime;
   protected remarks = '';

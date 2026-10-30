@@ -40,8 +40,8 @@ import { StatusBadge } from '../../shared/ui';
               <tr>
                 <td><strong>{{ app.applicationNumber }}</strong></td>
                 <td>
-                  <span class="noc-tag" [class.final]="app.nocType === 'Final'">
-                    {{ app.nocType }}
+                  <span class="noc-tag">
+                    Tree Cutting
                   </span>
                 </td>
                 <td>{{ app.applicantName }}</td>
@@ -70,7 +70,6 @@ import { StatusBadge } from '../../shared/ui';
   `,
   styles: `
     .noc-tag { display: inline-flex; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; background: var(--pmrda-green-pale); color: var(--pmrda-green-dark); }
-    .noc-tag.final { background: var(--info-bg); color: var(--info-text); }
   `,
 })
 export class ReviewList {

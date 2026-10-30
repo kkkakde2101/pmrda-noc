@@ -212,12 +212,12 @@ export class ApplicationView {
     ),
   );
 
-  protected nocLabel(t: string) { return t === 'Provisional' ? 'Provisional Tree NOC' : 'Final Tree Completion NOC'; }
+  protected nocLabel(t: string) { return NOC_TYPE_LABELS[t as keyof typeof NOC_TYPE_LABELS] ?? t; }
 
   protected downloadNoc(a: ApplicationDetail) {
     if (!a) return;
     const issueDate = new Date(a.updatedAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
-    const nocTitle = a.nocType === 'Provisional' ? 'Provisional Tree NOC' : 'Final Tree Completion NOC';
+    const nocTitle = NOC_TYPE_LABELS[a.nocType];
     const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${a.applicationNumber} — NOC Certificate</title>
 <style>
   body { font-family: "Times New Roman", serif; margin: 0; padding: 40px 60px; color: #111; line-height: 1.7; }

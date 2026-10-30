@@ -38,14 +38,6 @@ import { P } from '../core/models';
           <div class="stat-sub">All time</div>
         </div>
         <div class="stat-tile">
-          <div class="stat-label">Provisional NOC</div>
-          <div class="stat-value">{{ s.provisional }}</div>
-        </div>
-        <div class="stat-tile">
-          <div class="stat-label">Final NOC</div>
-          <div class="stat-value">{{ s.final }}</div>
-        </div>
-        <div class="stat-tile">
           <div class="stat-label">Under Review</div>
           <div class="stat-value">{{ s.pending }}</div>
           <div class="stat-sub">In workflow</div>
@@ -70,7 +62,7 @@ import { P } from '../core/models';
                 <a routerLink="/applications/new" class="quick-action-btn">
                   <i class="fa-solid fa-plus-circle"></i>
                   <span>New Application</span>
-                  <small>Apply for Provisional or Final Tree NOC</small>
+                  <small>Apply for Tree Cutting NOC</small>
                 </a>
               }
               @if (auth.can(P.applicationsView)) {
@@ -93,21 +85,14 @@ import { P } from '../core/models';
 
         <!-- NOC types info -->
         <div class="panel">
-          <div class="panel-heading"><h3>About Tree NOC</h3></div>
+          <div class="panel-heading"><h3>About Tree Cutting NOC</h3></div>
           <div class="panel-body">
             <div class="noc-info">
               <div class="noc-type-card">
-                <div class="noc-icon prov"><i class="fa-solid fa-seedling"></i></div>
+                <div class="noc-icon prov"><i class="fa-solid fa-tree"></i></div>
                 <div>
-                  <strong>Provisional Tree NOC</strong>
-                  <p>For proposed development projects. Submit before construction begins. Requires existing tree inventory, landscape plan, and proposed plantation list.</p>
-                </div>
-              </div>
-              <div class="noc-type-card">
-                <div class="noc-icon final"><i class="fa-solid fa-tree"></i></div>
-                <div>
-                  <strong>Final Tree Completion NOC</strong>
-                  <p>For completed projects. Required for Occupancy Certificate. Verify all plantation completed, submit geotagging and survey reports.</p>
+                  <strong>Tree Cutting NOC</strong>
+                  <p>For development projects on land with existing trees. Requires existing tree inventory, landscape plan, and proposed plantation list.</p>
                 </div>
               </div>
             </div>
@@ -133,7 +118,6 @@ import { P } from '../core/models';
     .noc-type-card { display: flex; gap: 14px; }
     .noc-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
     .noc-icon.prov { background: #e8f5e9; color: var(--pmrda-green); }
-    .noc-icon.final { background: #e3f2fd; color: #1565c0; }
     .noc-type-card strong { display: block; font-size: 14px; margin-bottom: 4px; }
     .noc-type-card p { margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.5; }
   `,
