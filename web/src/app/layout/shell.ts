@@ -16,8 +16,8 @@ import { P } from '../core/models';
             <i class="fa-solid fa-tree"></i>
           </div>
           <div class="brand-text">
-            <span class="brand-name">PMRDA</span>
-            <span class="brand-sub">Tree NOC Portal</span>
+            <span class="brand-name">PMRDA Smart City</span>
+            <span class="brand-sub">Tree NOC Management System</span>
           </div>
         </div>
 
